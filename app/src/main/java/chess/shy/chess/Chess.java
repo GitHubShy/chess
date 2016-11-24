@@ -2,24 +2,38 @@ package chess.shy.chess;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 
-import chess.shy.chess.chess.shy.bean.PieceInfo;
+import chess.shy.bean.PieceInfo;
 
-public class MainActivity extends AppCompatActivity {
+
+public class Chess extends AppCompatActivity implements View.OnLongClickListener {
     private ChessBoard mCb;
-
+    private DragController mDragController;
+    private DragLayer mDragLayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCb = (ChessBoard) findViewById(R.id.chess);
+        initView();
         initPiece();
     }
+
+    private void initView() {
+        mDragController = new DragController(this);
+        mCb = (ChessBoard) findViewById(R.id.chess);
+        mDragLayer = (DragLayer) findViewById(R.id.drag_layer);
+        mDragLayer.setup(this,mDragController);
+    }
+
     private void add(PieceInfo pi) {
         BubbleTextView bt = new BubbleTextView(getApplicationContext(),pi);
         ChessBoard.LayoutParams lp = new ChessBoard.LayoutParams(pi.cellX, pi.cellY, 1, 1);
-        mCb.addView(bt,lp);
+        bt.setOnLongClickListener(this);
+        mCb.addView(bt, lp);
     }
+
     private void initPiece() {
         PieceInfo redChariotLeft = new PieceInfo("車",0,0,0,true,null);
         add(redChariotLeft);
@@ -85,5 +99,17 @@ public class MainActivity extends AppCompatActivity {
         add(blackGeneral);
         PieceInfo redGeneral = new PieceInfo("帅",4,0,0,true,null);
         add(redGeneral);
+    }
+    public DragController getDragController() {
+        return mDragController;
+    }
+    public DragLayer getDragLayer() {
+        return mDragLayer;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        Log.e("11111111111111","v="+v.getTag());
+        return false;
     }
 }

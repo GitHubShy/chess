@@ -1,4 +1,4 @@
-package chess.shy.chess.chess.shy.bean;
+package chess.shy.bean;
 
 /**
  * Created by shiyao on 16-11-23.

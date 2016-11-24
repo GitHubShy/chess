@@ -34,7 +34,8 @@ import android.view.MotionEvent;
 import android.widget.Scroller;
 import android.widget.TextView;
 
-import chess.shy.chess.chess.shy.bean.PieceInfo;
+import chess.shy.bean.PieceInfo;
+
 
 /**
  * TextView that draws a bubble behind the text. We cannot use a LineBackgroundSpan
